@@ -12,10 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "HOSPITAL")
@@ -93,6 +90,16 @@ public class Hospital implements Serializable
     {
         return String.format("%s (%d)", this.nameShort, this.hospitalId);
     }
+    //endregion
+
+    //region Methode
+
+    public LongSummaryStatistics getMonthsStatistics(){
+        return this.doctorHospitals.stream()
+                .mapToLong(DoctorHospital::getMonths)
+                .summaryStatistics();
+    }
+
     //endregion
 
     //region Getter and Setter

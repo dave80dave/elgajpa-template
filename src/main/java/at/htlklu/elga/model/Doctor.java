@@ -45,6 +45,11 @@ import java.util.*;
                 cascade = CascadeType.ALL,
                 fetch = FetchType.LAZY)
         private Set<DoctorHospital> doctorHospitals = new HashSet<>();
+
+        @OneToMany(mappedBy = "doctorAtt",
+                cascade = CascadeType.ALL,
+                fetch = FetchType.LAZY)
+        private Set<MedicalVisit> medicalVisits = new HashSet<>();
         //endregion
 
         //region Constructors
@@ -106,9 +111,10 @@ import java.util.*;
         }
         //endregion
 
-        //region Kennzahlen
+        //region Methods
 
 
+        //region DoctorHospital
         // 1. Ziel: Kennzahl Income
         public DoubleSummaryStatistics getIncomeStatistics() {
             return this.getDoctorHospitals().stream()
@@ -118,25 +124,46 @@ import java.util.*;
 
         // 2. Ziel: Kennzahl Month
         public LongSummaryStatistics getMonthsStatistics() {
-            return this.getDoctorHospitals().stream()
+            return this.doctorHospitals.stream()
                     .mapToLong(DoctorHospital::getMonths)
                     .summaryStatistics();
         }
 
-
+        // 3. Ziel: Kennzahl Total
         public DoubleSummaryStatistics getTotalIncomeStatistics() {
             return this.getDoctorHospitals().stream()
                     .mapToDouble(DoctorHospital::getTotalIncome)
                     .summaryStatistics();
         }
 
-        public double getIncomeMin(){
-            return getIncomeStatistics().getMin();
+        //region MedicalCases
+
+        public DoubleSummaryStatistics getCostsByDayStatistics(){
+            return this.medicalVisits.stream()
+                    .mapToDouble(MedicalVisit::getCostsPerDay)
+                    .summaryStatistics();
         }
 
-        public double getIncomeMax(){
-            return getIncomeStatistics().getMax();
+        public LongSummaryStatistics getDaysStatistics(){
+            return this.medicalVisits.stream()
+                    .mapToLong(MedicalVisit::getDays)
+                    .summaryStatistics();
         }
+
+        public DoubleSummaryStatistics getCostsStatistics(){
+            return this.medicalVisits.stream()
+                    .mapToDouble(MedicalVisit::getCosts)
+                    .summaryStatistics();
+        }
+
+        public IntSummaryStatistics getRatingsStatistics(){
+            return this.medicalVisits.stream()
+                    .mapToInt(MedicalVisit::getRating)
+                    .summaryStatistics();
+        }
+        //endregion
+        //endregion
+
 
         //endregion
 

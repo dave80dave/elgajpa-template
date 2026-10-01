@@ -6,7 +6,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "MEDICAL_VISIT")
@@ -36,16 +39,16 @@ public class MedicalVisit implements Serializable {
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "DOCTOR_ID_ATT")
-    private Doctor attendingDoctor;
+//    @NotNull
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "DOCTOR_ID_ATT")
+//    private Doctor attendingDoctor;
 
     @Column(name = "ROOM_NUMBER")
     private String roomNumber;
 
     @Column(name = "COSTS_PER_DAY")
-    private BigDecimal costsPerDay;
+    private Double costsPerDay;
 
     @Column(name = "RATING")
     private Integer rating;
@@ -56,18 +59,23 @@ public class MedicalVisit implements Serializable {
 
     @Column(name = "DATE_TO")
     private LocalDate dateTo;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DOCTOR_ID_ATT")
+    private Doctor doctorAtt;
+
     //endregion
 
     //region Constructors
     public MedicalVisit() {
     }
 
-    public MedicalVisit(MedicalCase medicalCase, Department department, Doctor attendingDoctor,
-                        String roomNumber, BigDecimal costsPerDay, Integer rating,
+    public MedicalVisit(MedicalCase medicalCase, Department department,
+                        String roomNumber, Double costsPerDay, Integer rating,
                         LocalDate dateFrom, LocalDate dateTo) {
         this.medicalCase = medicalCase;
         this.department = department;
-        this.attendingDoctor = attendingDoctor;
         this.roomNumber = roomNumber;
         this.costsPerDay = costsPerDay;
         this.rating = rating;
@@ -85,18 +93,39 @@ public class MedicalVisit implements Serializable {
     public void setMedicalCase(MedicalCase medicalCase) { this.medicalCase = medicalCase; }
     public Department getDepartment() { return department; }
     public void setDepartment(Department department) { this.department = department; }
-    public Doctor getAttendingDoctor() { return attendingDoctor; }
-    public void setAttendingDoctor(Doctor attendingDoctor) { this.attendingDoctor = attendingDoctor; }
     public String getRoomNumber() { return roomNumber; }
     public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }
-    public BigDecimal getCostsPerDay() { return costsPerDay; }
-    public void setCostsPerDay(BigDecimal costsPerDay) { this.costsPerDay = costsPerDay; }
+    public Double getCostsPerDay() { return costsPerDay; }
+    public void setCostsPerDay(Double costsPerDay) { this.costsPerDay = costsPerDay; }
     public Integer getRating() { return rating; }
     public void setRating(Integer rating) { this.rating = rating; }
     public LocalDate getDateFrom() { return dateFrom; }
     public void setDateFrom(LocalDate dateFrom) { this.dateFrom = dateFrom; }
     public LocalDate getDateTo() { return dateTo; }
     public void setDateTo(LocalDate dateTo) { this.dateTo = dateTo; }
+    //endregion
+
+    //region Methodes
+
+    // 1. Ziel: Aufenthaltsdauer in Tagen
+
+    public int getDays(){
+        if (this.dateTo.isAfter(LocalDate.now())){
+         return (int)ChronoUnit.DAYS.between(this.dateFrom,LocalDate.now().plusDays(1));
+        }
+        else {
+            return (int)ChronoUnit.DAYS.between(this.dateFrom, this.dateTo.plusDays(1));
+        }
+
+    }
+
+    // 2. Ziel: Aufenthaltskosten
+
+    public double getCosts(){
+        return this.getDays() * this.costsPerDay;
+    }
+
+
     //endregion
 
     //region toString

@@ -28,9 +28,11 @@ public class HospitalApp
 	private static void selectA()
 	{
 		Hospital hospital = entityManager.find(Hospital.class, hospitalId);
-		logger.info(hospital);
+//		logger.info(hospital);
+//
+//		logger.info(hospital.getDepartments().size());
 
-		logger.info(hospital.getDepartments().size());
+        logger.info((hospital.getMonthsStatistics()));
 
 //		hospital.getDepartments().stream()
 //								 .forEach(System.out::println);

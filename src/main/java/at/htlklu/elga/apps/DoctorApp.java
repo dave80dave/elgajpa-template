@@ -39,20 +39,21 @@ public class DoctorApp {
                         doctorHospital.getDateTo(),
                         doctorHospital.getHospital().getNameShort()));
 
-
-
-
-        System.out.println(doctor.getIncomeMin());
-        System.out.println(doctor.getIncomeMax());
-        System.out.println(doctor.getIncomeMin() + doctor.getIncomeMax());
-        System.out.println(doctor.getMonthsStatistics());
-        System.out.println(doctor.getIncomeStatistics());
-        System.out.println(doctor.getTotalIncomeStatistics());
+//        System.out.println(doctor.getMonthsStatistics());
+//        System.out.println(doctor.getIncomeStatistics());
+//        System.out.println(doctor.getTotalIncomeStatistics());
 //        System.out.println(doctor.getTotalIncomeStatistics());
 //        		hospital.getDepartments().stream()
 //								 .forEach(System.out::println);
 
-//		logger.info(HTLEntityManager.getPersistenceContextContent(entityManager));				// zeige den 1st-Level Cache
+//		logger.info(HTLEntityManager.getPersistenceContextContent(entityManager));
+//      zeige den 1st-Level Cache
+
+        System.out.println(doctor.getCostsByDayStatistics());
+        System.out.println(doctor.getDaysStatistics());
+        System.out.println(doctor.getCostsStatistics());
+        System.out.println(doctor.getRatingsStatistics());
+
     }
 
 }
