@@ -1,0 +1,27 @@
+# IntelliJ
+.idea/
+*.iml
+*.iws
+
+### Java template
+# compiled class files
+*.class
+
+# log-Files
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.zip
+*.rar
+
+### Maven template
+target/
+log/

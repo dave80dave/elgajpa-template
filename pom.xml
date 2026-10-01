@@ -1,0 +1,130 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  	<modelVersion>4.0.0</modelVersion>
+  	<groupId>at.htlklu</groupId>
+  	<artifactId>ElgaJPA</artifactId>
+  	<version>0.0.1-SNAPSHOT</version>
+  	<name>ElgaJPA</name>
+  	<description>ElgaJPA</description>
+
+  	<!-- https://stackoverflow.com/questions/28509928/java-version-automatically-change-to-java-1-5-after-maven-update -->
+	<properties>
+		<maven.compiler.source>21</maven.compiler.source>
+    	<maven.compiler.target>21</maven.compiler.target>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>HTL-repo-web</id>
+			<name>HTL Repository Web</name>
+			<url>https://www.htl-klu.at/fileadmin/downloads/MavenRepository</url>
+		</repository>
+
+		<repository>
+			<id>HTL-repo-u</id>
+			<name>HTL Repository U</name>
+			<url>file:///U:/Informationen/Java/MavenRepository</url>
+		</repository>
+	</repositories>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>HTL-plugin-repo-web</id>
+			<name>HTL Plugin-Repository Web</name>
+			<url>https://www.htl-klu.at/fileadmin/downloads/MavenRepository</url>
+		</pluginRepository>
+
+		<pluginRepository>
+			<id>HTL-plugin-repo-u</id>
+			<name>HTL Plugin-Repository U</name>
+			<url>file:///U:/Informationen/Java/MavenRepository</url>
+		</pluginRepository>
+	</pluginRepositories>
+
+  	<dependencies>
+
+<!--		ist notwendig, weil import jakarta.persistence.*; benötigt wird, z.B. für gewisse Annotationen in den Models, z.B. @Entity, @Id, etc., aber auch EntityManagerFactory, EntityManager, etc. -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+			<version>6.5.2.Final</version>
+        </dependency>
+
+<!--		alte Version (darf nicht mehr verwendet werden!) -->
+<!--		ist notwendig, weil gewisse Annotationen in den Models benötigt werden, z.B. @NotBlank oder @NotNull;-->
+<!--		<dependency>-->
+<!--			<groupId>javax.validation</groupId>-->
+<!--			<artifactId>validation-api</artifactId>-->
+<!--			<version>2.0.1.Final</version>-->
+<!--		</dependency>-->
+
+<!--		neue Version-->
+<!--		ist (vermutlich) notwendig, weil import jakarta.validation.constraints.*; für gewisse Annotationen in den Models benötigt werden, z.B. @NotBlank oder @NotNull;-->
+<!--		Interface JSR 380 -->
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+<!--		ist notwendig, weil gewisse Annotationen in den Models benötigt werden, z.B. @NotBlank oder @NotNull;-->
+<!--		Implementierung des Interfaces-->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>8.0.1.Final</version>
+		</dependency>
+<!--		https://www.baeldung.com/java-validation-->
+<!--		die folgende Dependency kann genutzt werden, um eine Java bean gegen Annotationen validieren zu können -->
+		<dependency>
+			<groupId>org.glassfish.expressly</groupId>
+			<artifactId>expressly</artifactId>
+			<version>5.0.0-M1</version>
+		</dependency>
+
+		<!--		ist notwendig, weil gewisse Matcher in den JUnit-Tests verwendet werden, z.B. import static org.hamcrest.MatcherAssert.assertThat;  -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>java-hamcrest</artifactId>
+			<version>2.0.0.0</version>
+		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>mysql</groupId>-->
+<!--			<artifactId>mysql-connector-java</artifactId>-->
+<!--			<version>8.0.33</version>-->
+<!--		</dependency>-->
+
+<!--		ist notwendig für die Logger in den App-Klassen, z.B. Logger logger = LogManager.getLogger(HospitalApp.class)  -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+<!--		ist notwendig, wenn der Logger in eine Datenbank loggen soll  -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+
+<!--		ist notwendig für die JUnit-Tests-->
+		<dependency>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-engine</artifactId>
+		    <version>5.5.2</version>
+		</dependency>
+<!--		ist notwendig, weil @JsonIgnore (import com.fasterxml.jackson.annotation) verwendet wird-->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+			<version>2.17.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>htl</groupId>
+			<artifactId>HTL-Utilities</artifactId>
+			<version>1.0.76</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

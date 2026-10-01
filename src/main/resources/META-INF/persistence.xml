@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<persistence version="2.1" 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" -->
+<!--			 				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" -->
+<!--			 				xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">-->
+
+	<persistence version="3.0" 	xmlns="https://jakarta.ee/xml/ns/persistence"
+				 				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 				xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+             					https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+	<persistence-unit name="elga">
+		<description>ElgaJPA App</description>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+		<!-- Entity classes -->
+		<class>at.htlklu.elga.model.Department</class>
+		<class>at.htlklu.elga.model.Hospital</class>
+		<class>at.htlklu.elga.model.Doctor</class>
+		<class>at.htlklu.elga.model.DoctorHospital</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+	    <properties>
+	        <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://db-mgin.services.htl.local:3306/elga?createDatabaseIfNotExist=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
+	        <property name="jakarta.persistence.jdbc.user" value="3394031080"/>
+	        <property name="jakarta.persistence.jdbc.password" value="3394031080"/>
+			<property name="jakarta.persistence.schema-generation.database.action" value="none" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+			<property name="hibernate.connection.pool_size" value="1" />
+			<property name="hibernate.show_sql" value="false"/>
+			<property name="hibernate.format_sql" value="false"/>
+			<property name="hibernate.use_sql_comments" value="false"/>
+			<property name="hibernate.generate_statistics" value="false"/>
+			<!--			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />-->
+			<property name="hibernate.boot.allow_jdbc_metadata_access" value="false"/>
+
+			<property name="eclipselink.logging.level.sql" value="FINE"/>
+			<property name="eclipselink.logging.parameters" value="true"/>
+	    </properties>
+	</persistence-unit>
+</persistence>
