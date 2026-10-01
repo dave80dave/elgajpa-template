@@ -1,19 +1,16 @@
 package at.htlklu.elga.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.hibernate.annotations.ManyToAny;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "DOCTOR_HOSPITAL")
-public class DoctorHospital {
+public class DoctorHospital
+{
     //region static Properties
     //endregion
 
@@ -23,80 +20,37 @@ public class DoctorHospital {
     @Column(name = "DOCTOR_HOSPITAL_ID")
     private Integer doctorHospitalId;
 
-    @NotBlank
+    @NotNull
     @Column(name = "DATE_FROM")
     private LocalDate dateFrom;
 
-    @NotBlank
     @Column(name = "DATE_TO")
     private LocalDate dateTo;
 
-    @NotBlank
     @Column(name = "INCOME")
     private Double income;
 
-
-    @NotNull        // verpflichtend
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    // Wir müssen den Fremdschlüssel von Hospital in der Tabelle DEPARTMENT angeben
-    // Hier: HOSPITAL_ID
     @JoinColumn(name = "HOSPITAL_ID")
-    // In der Variable "hospital" wird die Instanz des zugehörigen Hospitals gespeichert
     private Hospital hospital;
 
-    @NotNull        // verpflichtend
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DOCTOR_ID")
     private Doctor doctor;
     //endregion
 
     //region Constructors
-    public DoctorHospital() {
+    public DoctorHospital()
+    {
     }
     //endregion
 
-    //region Getter and Setter
-    public Integer getDoctorHospitalId() {
-        return doctorHospitalId;
-    }
-
-    public LocalDate getDateFrom() {
-        return dateFrom;
-    }
-
-    public LocalDate getDateTo() {
-        return dateTo;
-    }
-
-    public Double getIncome() {
-        return income;
-    }
-
-    public Hospital getHospital() {
-        return hospital;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-//endregion
-    // 1. Ziel: getMonths
-
-
-    public double getTotalIncome(){
-        return this.getMonths() * this.income;
-    }
-
-    public long getMonths(){
-        if (this.dateTo.isAfter(LocalDate.now()))
-            return ChronoUnit.MONTHS.between(this.dateFrom, LocalDate.now());
-        else
-            return ChronoUnit.MONTHS.between(this.dateFrom, this.dateTo.plusDays(1));
-    }
-
     //region toString
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "DoctorHospital{" +
                 "doctorHospitalId=" + doctorHospitalId +
                 ", dateFrom=" + dateFrom +
@@ -106,26 +60,117 @@ public class DoctorHospital {
     }
     //endregion
 
+    //region Getter and Setter
+    public Integer getDoctorHospitalId()
+    {
+        return doctorHospitalId;
+    }
+
+    public void setDoctorHospitalId(Integer doctorHospitalId)
+    {
+        this.doctorHospitalId = doctorHospitalId;
+    }
+
+    public LocalDate getDateFrom()
+    {
+        return dateFrom;
+    }
+
+    public void setDateFrom(LocalDate dateFrom)
+    {
+        this.dateFrom = dateFrom;
+    }
+
+    public LocalDate getDateTo()
+    {
+        return dateTo;
+    }
+
+    public void setDateTo(LocalDate dateTo)
+    {
+        this.dateTo = dateTo;
+    }
+
+    public Double getIncome()
+    {
+        return income;
+    }
+
+    public void setIncome(Double income)
+    {
+        this.income = income;
+    }
+
+    public Hospital getHospital()
+    {
+        return hospital;
+    }
+
+    public void setHospital(Hospital hospital)
+    {
+        this.hospital = hospital;
+    }
+
+    public Doctor getDoctor()
+    {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor)
+    {
+        this.doctor = doctor;
+    }
+
+    public double getTotalIncome()
+    {
+        double currentIncome = income == null ? 0.0 : income;
+        return getMonths() * currentIncome;
+    }
+
+    public long getMonths()
+    {
+        LocalDate endDate;
+
+        if (dateTo == null || dateTo.isAfter(LocalDate.now()))
+        {
+            endDate = LocalDate.now();
+        }
+        else
+        {
+            endDate = dateTo.plusDays(1);
+        }
+
+        return ChronoUnit.MONTHS.between(dateFrom, endDate);
+    }
+    //endregion
+
     //region Add and Remove
     //endregion
 
     //region HashCode and Equals
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return getClass().hashCode();
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         boolean equal;
         DoctorHospital doctorHospital1 = this;
 
-        if (doctorHospital1 == obj) {
+        if (doctorHospital1 == obj)
+        {
             equal = true;
-        } else if (obj == null || !(obj instanceof DoctorHospital)) {
+        }
+        else if (obj == null || !(obj instanceof DoctorHospital))
+        {
             equal = false;
-        } else {
-            DoctorHospital doctorHospital2 = (DoctorHospital) obj;
+        }
+        else
+        {
+            DoctorHospital doctorHospital2 = (DoctorHospital)obj;
             equal = doctorHospital1.doctorHospitalId != null
                     && Objects.equals(
                             doctorHospital1.doctorHospitalId,
