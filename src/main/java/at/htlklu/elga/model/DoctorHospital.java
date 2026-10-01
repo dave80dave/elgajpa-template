@@ -8,11 +8,15 @@ import org.hibernate.annotations.ManyToAny;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "DOCTOR_HOSPITAL")
 public class DoctorHospital {
+    //region static Properties
+    //endregion
+
     //region Properties
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +50,7 @@ public class DoctorHospital {
     private Doctor doctor;
     //endregion
 
-    //region Constructor
+    //region Constructors
     public DoctorHospital() {
     }
     //endregion
@@ -75,7 +79,7 @@ public class DoctorHospital {
     public Doctor getDoctor() {
         return doctor;
     }
-
+//endregion
     // 1. Ziel: getMonths
 
 
@@ -99,6 +103,37 @@ public class DoctorHospital {
                 ", dateTo=" + dateTo +
                 ", income=" + income +
                 '}';
+    }
+    //endregion
+
+    //region Add and Remove
+    //endregion
+
+    //region HashCode and Equals
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal;
+        DoctorHospital doctorHospital1 = this;
+
+        if (doctorHospital1 == obj) {
+            equal = true;
+        } else if (obj == null || !(obj instanceof DoctorHospital)) {
+            equal = false;
+        } else {
+            DoctorHospital doctorHospital2 = (DoctorHospital) obj;
+            equal = doctorHospital1.doctorHospitalId != null
+                    && Objects.equals(
+                            doctorHospital1.doctorHospitalId,
+                            doctorHospital2.getDoctorHospitalId()
+                    );
+        }
+
+        return equal;
     }
     //endregion
 }

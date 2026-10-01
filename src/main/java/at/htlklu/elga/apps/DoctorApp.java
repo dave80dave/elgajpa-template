@@ -28,21 +28,26 @@ public class DoctorApp {
 
     private static void selectA() {
         Doctor doctor = entityManager.find(Doctor.class, doctorId);
-
-        logger.info(doctor);
-
-        logger.info(doctor.toString());
-        logger.info(doctor.getDoctorHospitals().size());
-
-
-        System.out.println(doctor.getDoctorHospitals().size());
+//        logger.info(doctor);
+//        logger.info(doctor.toString());
+//        logger.info(doctor.getDoctorHospitals().size());
+//        System.out.println(doctor.getDoctorHospitals().size());
 
         doctor.getDoctorHospitals()
-                .forEach(doctorHospital -> System.out.printf("%s | %s | %s%n", doctorHospital.getDateFrom(), doctorHospital.getDateTo(), doctorHospital.getHospital().getNameShort()));
+                .forEach(doctorHospital -> System.out.printf("%s | %s | %s%n",
+                        doctorHospital.getDateFrom(),
+                        doctorHospital.getDateTo(),
+                        doctorHospital.getHospital().getNameShort()));
 
-        System.out.println(doctor.getMonthsStatistics());
-        System.out.println(doctor.getIncomeStatistics());
-        System.out.println(doctor.getTotalIncomeStatistics());
+
+
+
+        System.out.println(doctor.getIncomeMin());
+        System.out.println(doctor.getIncomeMax());
+        System.out.println(doctor.getIncomeMin() + doctor.getIncomeMax());
+//        System.out.println(doctor.getMonthsStatistics());
+//        System.out.println(doctor.getIncomeStatistics());
+//        System.out.println(doctor.getTotalIncomeStatistics());
         //		hospital.getDepartments().stream()
 //								 .forEach(System.out::println);
 

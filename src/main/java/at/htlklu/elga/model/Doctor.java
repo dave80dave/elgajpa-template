@@ -12,6 +12,9 @@ import java.util.*;
     public class Doctor implements Serializable
     {
 
+        //region static Properties
+        //endregion
+
         //region Properties
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +47,7 @@ import java.util.*;
         private Set<DoctorHospital> doctorHospitals = new HashSet<>();
         //endregion
 
-        //region Constructor
+        //region Constructors
         public Doctor() {
         }
         //endregion
@@ -103,20 +106,23 @@ import java.util.*;
         }
         //endregion
 
+        //region Kennzahlen
+
+
         // 1. Ziel: Kennzahl Income
-
-        public LongSummaryStatistics getMonthsStatistics() {
-            return this.getDoctorHospitals().stream()
-                    .mapToLong(DoctorHospital::getMonths)
-                    .summaryStatistics();
-        }
-        // 1. Ziel: Kennzahl Month
-
         public DoubleSummaryStatistics getIncomeStatistics() {
             return this.getDoctorHospitals().stream()
                     .mapToDouble(DoctorHospital::getIncome)
                     .summaryStatistics();
         }
+
+        // 2. Ziel: Kennzahl Month
+        public LongSummaryStatistics getMonthsStatistics() {
+            return this.getDoctorHospitals().stream()
+                    .mapToLong(DoctorHospital::getMonths)
+                    .summaryStatistics();
+        }
+
 
         public DoubleSummaryStatistics getTotalIncomeStatistics() {
             return this.getDoctorHospitals().stream()
@@ -124,10 +130,26 @@ import java.util.*;
                     .summaryStatistics();
         }
 
-        //region Description
+        public double getIncomeMin(){
+            return getIncomeStatistics().getMin();
+        }
+
+        public double getIncomeMax(){
+            return getIncomeStatistics().getMax();
+        }
+
+        //endregion
+
+        //region toString
         @Override
         public String toString() {
             return String.format("%s (%d)", this.surname, this.doctorId);
         }
+        //endregion
+
+        //region Add and Remove
+        //endregion
+
+        //region HashCode and Equals
         //endregion
     }

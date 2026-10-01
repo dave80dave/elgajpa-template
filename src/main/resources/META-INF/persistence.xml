@@ -17,6 +17,12 @@
 		<class>at.htlklu.elga.model.Hospital</class>
 		<class>at.htlklu.elga.model.Doctor</class>
 		<class>at.htlklu.elga.model.DoctorHospital</class>
+		<class>at.htlklu.elga.model.Patient</class>
+		<class>at.htlklu.elga.model.Address</class>
+		<class>at.htlklu.elga.model.Region</class>
+		<class>at.htlklu.elga.model.ClassificationSystem</class>
+		<class>at.htlklu.elga.model.MedicalCase</class>
+		<class>at.htlklu.elga.model.MedicalVisit</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 	    <properties>
