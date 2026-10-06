@@ -11,7 +11,7 @@ public class DepartmentApp
 
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;
-	private static int departmentId = 1;
+	private static int departmentId = 2;
 	
 	public static void main(String[] args)
 	{
@@ -30,6 +30,7 @@ public class DepartmentApp
         Department department = entityManager.find(Department.class, departmentId);
         logger.info(department);
         logger.info(department.getHospital());
+        logger.info(department.getMedicalVisits().size());
 
 //		logger.info(HTLEntityManager.getPersistenceContextContent(entityManager));				// zeige den 1st-Level Cache
     }

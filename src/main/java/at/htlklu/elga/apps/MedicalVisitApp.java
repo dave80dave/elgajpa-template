@@ -30,5 +30,6 @@ public class MedicalVisitApp
         logger.info(medicalVisit);
         logger.info(medicalVisit.getMedicalCase());
         logger.info(medicalVisit.getDepartment());
+        logger.info(medicalVisit.getDoctorAtt());
     }
 }

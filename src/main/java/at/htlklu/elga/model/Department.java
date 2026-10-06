@@ -30,6 +30,11 @@ public class Department implements Serializable
 
 	@NotBlank
 	private String name;
+
+	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+	private Set<MedicalVisit> medicalVisits = new HashSet<>();
+
+
 	//endregion
 
 
@@ -84,6 +89,11 @@ public class Department implements Serializable
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public Set<MedicalVisit> getMedicalVisits()
+	{
+		return medicalVisits;
 	}
 	//endregion
 

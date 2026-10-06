@@ -12,7 +12,7 @@ public class DoctorApp {
 
     private static EntityManagerFactory entityManagerFactory;
     private static EntityManager entityManager;
-    private static int doctorId = 2;
+    private static int doctorId = 3;
 
     public static void main(String[] args)
     {
@@ -49,7 +49,7 @@ public class DoctorApp {
 //		logger.info(HTLEntityManager.getPersistenceContextContent(entityManager));
 //      zeige den 1st-Level Cache
 
-        System.out.println(doctor.getCostsByDayStatistics());
+        System.out.println("Kosten pro Tag:" + doctor.getCostsByDayStatistics());
         System.out.println(doctor.getDaysStatistics());
         System.out.println(doctor.getCostsStatistics());
         System.out.println(doctor.getRatingsStatistics());

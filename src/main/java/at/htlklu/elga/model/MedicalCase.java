@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -130,5 +131,15 @@ public class MedicalCase implements Serializable {
         if (!(obj instanceof MedicalCase medicalCase)) return false;
         return medicalCaseId != null && Objects.equals(medicalCaseId, medicalCase.getMedicalCaseId());
     }
+
+    public int getDays() {
+        if (this.dateTo.isAfter(LocalDate.now())){
+            return (int) ChronoUnit.DAYS.between(this.dateFrom, LocalDate.now().plusDays(1));
+        }
+        else {
+            return (int) ChronoUnit.DAYS.between(this.dateFrom, this.dateTo.plusDays(1));
+        }
+    }
+
     //endregion
 }

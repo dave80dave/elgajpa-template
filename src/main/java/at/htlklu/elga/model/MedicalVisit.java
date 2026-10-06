@@ -39,11 +39,6 @@ public class MedicalVisit implements Serializable {
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
-//    @NotNull
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "DOCTOR_ID_ATT")
-//    private Doctor attendingDoctor;
-
     @Column(name = "ROOM_NUMBER")
     private String roomNumber;
 
@@ -71,11 +66,12 @@ public class MedicalVisit implements Serializable {
     public MedicalVisit() {
     }
 
-    public MedicalVisit(MedicalCase medicalCase, Department department,
+    public MedicalVisit(MedicalCase medicalCase, Department department, Doctor doctorAtt,
                         String roomNumber, Double costsPerDay, Integer rating,
                         LocalDate dateFrom, LocalDate dateTo) {
         this.medicalCase = medicalCase;
         this.department = department;
+        this.doctorAtt = doctorAtt;
         this.roomNumber = roomNumber;
         this.costsPerDay = costsPerDay;
         this.rating = rating;
@@ -93,6 +89,8 @@ public class MedicalVisit implements Serializable {
     public void setMedicalCase(MedicalCase medicalCase) { this.medicalCase = medicalCase; }
     public Department getDepartment() { return department; }
     public void setDepartment(Department department) { this.department = department; }
+    public Doctor getDoctorAtt() { return doctorAtt; }
+    public void setDoctorAtt(Doctor doctorAtt) { this.doctorAtt = doctorAtt; }
     public String getRoomNumber() { return roomNumber; }
     public void setRoomNumber(String roomNumber) { this.roomNumber = roomNumber; }
     public Double getCostsPerDay() { return costsPerDay; }
