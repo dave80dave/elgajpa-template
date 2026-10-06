@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "DOCTOR")
@@ -141,6 +142,14 @@ public class Doctor implements Serializable {
                 .summaryStatistics();
     }
 
+    // Ziel Häufigkeiten pro KA ermitteln
+
+    public Map<Hospital, Long> getHospitalFrequencies() {
+        return this.doctorHospitals.stream()
+                .collect(Collectors.groupingBy(DoctorHospital::getHospital,
+                        Collectors.counting()));
+    }
+
     //region MedicalVisit
 
     public DoubleSummaryStatistics getCostsByDayStatistics() {
@@ -172,6 +181,8 @@ public class Doctor implements Serializable {
                 .mapToLong(MedicalCase::getDays)
                 .summaryStatistics();
     }
+
+
     //region
 
     //region

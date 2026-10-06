@@ -61,6 +61,7 @@ public class Hospital implements Serializable
                cascade = CascadeType.ALL,
                fetch = FetchType.LAZY)
     private Set<DoctorHospital> doctorHospitals = new HashSet<>();
+
     //endregion
 
     //region Constructors
@@ -100,7 +101,28 @@ public class Hospital implements Serializable
                 .summaryStatistics();
     }
 
-    //endregion
+	public DoubleSummaryStatistics getIncomeStatistics(){
+        return this.doctorHospitals.stream()
+                .mapToDouble(DoctorHospital::getIncome)
+                .summaryStatistics();
+    }
+
+	public DoubleSummaryStatistics getTotalIncomeStatistics(){
+        return this.doctorHospitals.stream()
+                .mapToDouble(DoctorHospital::getIncome)
+                .summaryStatistics();
+    }
+
+	// Statistics für alle MedicalVisits von dem Hospital, Raiting
+
+	public IntSummaryStatistics getRaitingStatistics(){
+		return this.departments.stream()
+				.flatMap(department -> department.getMedicalVisits().stream())
+				.mapToInt(MedicalVisit::getRating)
+				.summaryStatistics();
+	}
+
+	//endregion
 
     //region Getter and Setter
     public static Comparator<Hospital> getByName()

@@ -11,7 +11,7 @@ public class HospitalApp
 
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;
-	private static int hospitalId = 1;
+	private static int hospitalId = 2;
 	
 	public static void main(String[] args)
 	{
@@ -28,11 +28,10 @@ public class HospitalApp
 	private static void selectA()
 	{
 		Hospital hospital = entityManager.find(Hospital.class, hospitalId);
-//		logger.info(hospital);
-//
-//		logger.info(hospital.getDepartments().size());
 
-        logger.info((hospital.getMonthsStatistics()));
+
+		logger.info(hospital.getRaitingStatistics());
+		logger.info(hospital);
 
 //		hospital.getDepartments().stream()
 //								 .forEach(System.out::println);

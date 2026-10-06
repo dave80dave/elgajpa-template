@@ -53,10 +53,6 @@ public class Patient implements Serializable {
     @Column(name = "WEIGHT")
     private Double weight;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CS_ID_CARRIER")
-    private ClassificationSystem carrier;
-
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
     //endregion
@@ -96,8 +92,6 @@ public class Patient implements Serializable {
     public void setSocialSecurityNumber(String socialSecurityNumber) { this.socialSecurityNumber = socialSecurityNumber; }
     public Double getWeight() { return weight; }
     public void setWeight(Double weight) { this.weight = weight; }
-    public ClassificationSystem getCarrier() { return carrier; }
-    public void setCarrier(ClassificationSystem carrier) { this.carrier = carrier; }
     public Set<Address> getAddresses() { return addresses; }
     //endregion
 
@@ -123,5 +117,6 @@ public class Patient implements Serializable {
         if (!(obj instanceof Patient patient)) return false;
         return patientId != null && Objects.equals(patientId, patient.getPatientId());
     }
+
     //endregion
 }

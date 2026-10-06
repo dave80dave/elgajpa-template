@@ -80,6 +80,14 @@ public class MedicalVisit implements Serializable {
     }
     //endregion
 
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
     //region Getter and Setter
     public Integer getMedicalVisitId() { return medicalVisitId; }
     public void setMedicalVisitId(Integer medicalVisitId) { this.medicalVisitId = medicalVisitId; }
@@ -148,5 +156,6 @@ public class MedicalVisit implements Serializable {
         if (!(obj instanceof MedicalVisit medicalVisit)) return false;
         return medicalVisitId != null && Objects.equals(medicalVisitId, medicalVisit.getMedicalVisitId());
     }
+
     //endregion
 }

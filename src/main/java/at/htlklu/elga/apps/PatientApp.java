@@ -28,7 +28,7 @@ public class PatientApp
     {
         Patient patient = entityManager.find(Patient.class, patientId);
         logger.info(patient);
-        logger.info(patient.getCarrier());
+//        logger.info(patient.getCarrier());
         logger.info(patient.getAddresses().size());
     }
 }

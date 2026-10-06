@@ -7,12 +7,14 @@ import jakarta.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Map;
+
 public class DoctorApp {
     private static Logger logger = LogManager.getLogger(DoctorApp.class);
 
     private static EntityManagerFactory entityManagerFactory;
     private static EntityManager entityManager;
-    private static int doctorId = 3;
+    private static int doctorId = 2;
 
     public static void main(String[] args)
     {
@@ -38,7 +40,6 @@ public class DoctorApp {
                         doctorHospital.getDateFrom(),
                         doctorHospital.getDateTo(),
                         doctorHospital.getHospital().getNameShort()));
-
 //        System.out.println(doctor.getMonthsStatistics());
 //        System.out.println(doctor.getIncomeStatistics());
 //        System.out.println(doctor.getTotalIncomeStatistics());
@@ -53,7 +54,17 @@ public class DoctorApp {
         System.out.println(doctor.getDaysStatistics());
         System.out.println(doctor.getCostsStatistics());
         System.out.println(doctor.getRatingsStatistics());
+        System.out.println(doctor.getHospitalFrequencies());
 
+        // eine Map besteht aus beliebigen vielen Entries
+        // ein Entry besteht aus einem Key und einem Value Paaren
+        // der Key muss in der Map eindeutig sein
+        // wie nutzt man eine Map mittels Streams?
+        // Zuerst muss die Map in eine Set umgewandelt werden, dann die Set in einen Stream und dann entsteht ein Stream  von Entries
+
+        doctor.getHospitalFrequencies().entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())// Stream von Entries
+                .forEach(entry -> System.out.printf("%s: %d%n", entry.getKey(), entry.getValue()));
     }
 
 }
