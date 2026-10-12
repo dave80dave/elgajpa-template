@@ -11,7 +11,7 @@ public class HospitalApp
 
 	private static EntityManagerFactory entityManagerFactory;
 	private static EntityManager entityManager;
-	private static int hospitalId = 2;
+	private static int hospitalId = 1;
 	
 	public static void main(String[] args)
 	{
@@ -32,6 +32,8 @@ public class HospitalApp
 
 		logger.info(hospital.getRaitingStatistics());
 		logger.info(hospital);
+
+		logger.info(hospital.getSexFrequency());
 
 //		hospital.getDepartments().stream()
 //								 .forEach(System.out::println);

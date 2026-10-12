@@ -2,8 +2,10 @@ package at.htlklu.elga.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,7 @@ public class Doctor implements Serializable {
     @Column(name = "SURNAME")
     private String surname;
 
-    @NotBlank
+    @NotNull
     @Column(name = "SEX")
     private Character sex;
 
@@ -37,9 +39,9 @@ public class Doctor implements Serializable {
     @Column(name = "TITLE")
     private String title;
 
-    @NotBlank
+    @NotNull
     @Column(name = "DATEOFBIRTH")
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     @OneToMany(mappedBy = "doctor",
             cascade = CascadeType.ALL,
@@ -62,6 +64,18 @@ public class Doctor implements Serializable {
     //region Constructors
     public Doctor() {
     }
+
+    // (v) Constructor mit Allen verpflichtenden Attribute (ohne ID)
+
+    public Doctor(String firstname, String surname, Character sex, String title, LocalDate dateOfBirth) {
+        this.firstname = firstname;
+        this.surname = surname;
+        this.sex = sex;
+        this.title = title;
+        this.dateOfBirth = dateOfBirth;
+    }
+
+
     //endregion
 
     //region Getter and Setter
@@ -105,11 +119,11 @@ public class Doctor implements Serializable {
         this.title = title;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -197,6 +211,7 @@ public class Doctor implements Serializable {
         return String.format("%s (%d)", this.surname, this.doctorId);
     }
     //endregion
+
 
     //region Add and Remove
     //endregion

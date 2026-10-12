@@ -3,10 +3,12 @@ package at.htlklu.elga.apps;
 import at.htlklu.elga.model.Doctor;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 public class DoctorApp {
@@ -21,8 +23,8 @@ public class DoctorApp {
         entityManagerFactory = Persistence.createEntityManagerFactory("elga");
         entityManager = entityManagerFactory.createEntityManager();
 
-        selectA();
-
+        //selectA();
+        createDoctor();
         entityManager.close();
         entityManagerFactory.close();
     }
@@ -56,16 +58,42 @@ public class DoctorApp {
         System.out.println(doctor.getRatingsStatistics());
         System.out.println(doctor.getHospitalFrequencies());
 
-        // eine Map besteht aus beliebigen vielen Entries
-        // ein Entry besteht aus einem Key und einem Value Paaren
-        // der Key muss in der Map eindeutig sein
-        // wie nutzt man eine Map mittels Streams?
-        // Zuerst muss die Map in eine Set umgewandelt werden, dann die Set in einen Stream und dann entsteht ein Stream  von Entries
+        // Eine Map besteht aus beliebigen vielen Entries.
+        // Ein Entry besteht aus einem Key und einem Value Paar.
+        // der Key muss in der Map eindeutig sein.
+        // Wie nutzt man eine Map mittels Streams?
+        // Zuerst muss die Map in ein Set umgewandelt werden, dann das Set in einen Stream und dann entsteht ein Stream  von Entries
 
         doctor.getHospitalFrequencies().entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())// Stream von Entries
                 .forEach(entry -> System.out.printf("%s: %d%n", entry.getKey(), entry.getValue()));
     }
 
+    //region Create Doctor auch zum Lernen
+
+    // Müssen eine Transaktion starten
+
+    public static void createDoctor() {
+        EntityTransaction transaction = entityManager.getTransaction();
+
+        transaction.begin();
+
+        try {
+            Doctor doctor = new Doctor("Max", "Mustermann", 'm', "Dr.",
+                    LocalDate.of(1991, 1, 1));
+
+            entityManager.persist(doctor);
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            transaction.rollback();
+            System.out.println("Fehler beim Erstellen des Doktors");
+        }
+
+
+
+        //endregion
+    }
 }
 

@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotBlank;
 
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "HOSPITAL")
@@ -113,6 +114,18 @@ public class Hospital implements Serializable
                 .summaryStatistics();
     }
 
+    //subregion
+
+    // Ziel: Häufigkeiten der Angestellten nach Geschlecht
+    // Anzahl "männlich", "weiblich"
+
+    public Map<Character, Long> getSexFrequency(){
+        return this.doctorHospitals.stream()
+                .collect(Collectors.groupingBy(doctorHospital -> doctorHospital.getDoctor().getSex(),
+                        Collectors.counting()));
+    }
+    //endsubregion
+
 	// Statistics für alle MedicalVisits von dem Hospital, Raiting
 
 	public IntSummaryStatistics getRaitingStatistics(){
@@ -121,6 +134,7 @@ public class Hospital implements Serializable
 				.mapToInt(MedicalVisit::getRating)
 				.summaryStatistics();
 	}
+
 
 	//endregion
 
