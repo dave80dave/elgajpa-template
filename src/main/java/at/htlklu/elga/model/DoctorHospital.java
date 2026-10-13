@@ -45,6 +45,13 @@ public class DoctorHospital
     public DoctorHospital()
     {
     }
+
+    public DoctorHospital(Double income, LocalDate dateTo, LocalDate dateFrom) {
+        this.income = income;
+        this.dateTo = dateTo;
+        this.dateFrom = dateFrom;
+    }
+
     //endregion
 
     //region toString
@@ -145,6 +152,8 @@ public class DoctorHospital
     //endregion
 
     //region Add and Remove
+
+
     //endregion
 
     //region HashCode and Equals

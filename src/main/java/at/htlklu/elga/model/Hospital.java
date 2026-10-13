@@ -226,8 +226,24 @@ public class Hospital implements Serializable
     //endregion
 
     //region Add and Remove
+
+    public void addDepartment(Department department)
+    {
+        // Erstes Ziel: beim neuen Department das Hospital eintragen
+        department.setHospital(this);
+        // Zweiter Ziel: bei Hospital das Department hinzufügen
+        this.departments.add(department); // im Allgemeinen wird hier die Liste der Abteilungen geladen
+        // Wie groß ist diese Liste? Im Allgemeinen Klein
+    }
     //endregion
 
+    //region Add and Remove
+    public void addDoctorHospital(DoctorHospital doctorHospital) {
+        doctorHospital.setHospital(this);
+        this.doctorHospitals.add(doctorHospital);
+    }
+
+    //endregion
     //region HashCode and Equals
     @Override
     public int hashCode()

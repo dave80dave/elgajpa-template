@@ -197,13 +197,14 @@ public class Doctor implements Serializable {
     }
 
 
-    //region
+    //region Add and Remove
 
-    //region
+    public void addDoctorHospital(DoctorHospital doctorHospital) {
+        doctorHospital.setDoctor(this);
+        this.doctorHospitals.add(doctorHospital);
+    }
     //endregion
 
-
-    //endregion
 
     //region toString
     @Override
