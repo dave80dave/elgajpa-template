@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "CLASSIFICATION_SYSTEM")
@@ -40,6 +42,12 @@ public class ClassificationSystem implements Serializable {
 
     @Column(name = "FREQUENCY")
     private Integer frequency;
+
+    @OneToMany(mappedBy = "diagnosis",
+               cascade = CascadeType.ALL,
+               fetch = FetchType.LAZY)
+    private Set<MedicalCase> medicalCases = new HashSet<>();
+
     //endregion
 
     //region Constructors
@@ -79,6 +87,10 @@ public class ClassificationSystem implements Serializable {
     //endregion
 
     //region Add and Remove
+    public void addMedicalCase(MedicalCase medicalCase) {
+        medicalCase.setDiagnosis(this);
+        this.medicalCases.add(medicalCase);
+    }
     //endregion
 
     //region HashCode and Equals

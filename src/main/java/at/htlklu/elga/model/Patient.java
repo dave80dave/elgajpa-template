@@ -3,6 +3,7 @@ package at.htlklu.elga.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -55,6 +56,9 @@ public class Patient implements Serializable {
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Address> addresses = new HashSet<>();
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<MedicalCase> medicalCases = new HashSet<>();
     //endregion
 
     //region Constructors
@@ -103,6 +107,10 @@ public class Patient implements Serializable {
     //endregion
 
     //region Add and Remove
+    public void addMedicalCase(MedicalCase medicalCase) {
+        medicalCase.setPatient(this);
+        this.medicalCases.add(medicalCase);
+    }
     //endregion
 
     //region HashCode and Equals

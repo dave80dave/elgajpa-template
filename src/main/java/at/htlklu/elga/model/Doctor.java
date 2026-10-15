@@ -15,6 +15,8 @@ import java.util.stream.Collectors;
 public class Doctor implements Serializable {
 
     //region static Properties
+    public static Comparator<Doctor> BY_SURNAME = Comparator.comparing(Doctor::getSurname);
+
     //endregion
 
     //region Properties
@@ -79,6 +81,27 @@ public class Doctor implements Serializable {
     //endregion
 
     //region Getter and Setter
+
+    public void setDoctorHospitals(Set<DoctorHospital> doctorHospitals) {
+        this.doctorHospitals = doctorHospitals;
+    }
+
+    public Set<MedicalVisit> getMedicalVisits() {
+        return medicalVisits;
+    }
+
+    public void setMedicalVisits(Set<MedicalVisit> medicalVisits) {
+        this.medicalVisits = medicalVisits;
+    }
+
+    public Set<MedicalCase> getMedicalCases() {
+        return medicalCases;
+    }
+
+    public void setMedicalCases(Set<MedicalCase> medicalCases) {
+        this.medicalCases = medicalCases;
+    }
+
     public Integer getDoctorId() {
         return doctorId;
     }
@@ -195,6 +218,11 @@ public class Doctor implements Serializable {
                 .mapToLong(MedicalCase::getDays)
                 .summaryStatistics();
     }
+    //endregion
+
+    //region reports
+
+    //endregion
 
 
     //region Add and Remove
@@ -215,6 +243,10 @@ public class Doctor implements Serializable {
 
 
     //region Add and Remove
+    public void addMedicalCase(MedicalCase medicalCase) {
+        medicalCase.setReferringDoctor(this);
+        this.medicalCases.add(medicalCase);
+    }
     //endregion
 
     //region HashCode and Equals

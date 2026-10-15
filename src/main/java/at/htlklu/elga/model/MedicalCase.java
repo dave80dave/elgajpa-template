@@ -65,6 +65,9 @@ public class MedicalCase implements Serializable {
 
     @OneToMany(mappedBy = "medicalCase", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<MedicalVisit> medicalVisits = new HashSet<>();
+
+
+
     //endregion
 
     //region Constructors
@@ -107,6 +110,20 @@ public class MedicalCase implements Serializable {
     public LocalDate getDateTo() { return dateTo; }
     public void setDateTo(LocalDate dateTo) { this.dateTo = dateTo; }
     public Set<MedicalVisit> getMedicalVisits() { return medicalVisits; }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public void setMedicalVisits(Set<MedicalVisit> medicalVisits) {
+        this.medicalVisits = medicalVisits;
+    }
+
+
     //endregion
 
     //region toString
@@ -117,6 +134,10 @@ public class MedicalCase implements Serializable {
     //endregion
 
     //region Add and Remove
+    public void addMedicalVisit(MedicalVisit medicalVisit) {
+        medicalVisit.setMedicalCase(this);
+        this.medicalVisits.add(medicalVisit);
+    }
     //endregion
 
     //region HashCode and Equals

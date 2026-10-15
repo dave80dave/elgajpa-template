@@ -5,13 +5,15 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "DOCTOR_HOSPITAL")
 public class DoctorHospital
 {
     //region static Properties
+    public static Comparator<DoctorHospital> BY_DATE_FROM = Comparator.comparing(DoctorHospital::getDateFrom);
+
     //endregion
 
     //region Properties
@@ -39,6 +41,8 @@ public class DoctorHospital
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DOCTOR_ID")
     private Doctor doctor;
+
+
     //endregion
 
     //region Constructors

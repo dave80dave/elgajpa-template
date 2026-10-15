@@ -63,6 +63,11 @@ public class Hospital implements Serializable
                fetch = FetchType.LAZY)
     private Set<DoctorHospital> doctorHospitals = new HashSet<>();
 
+    @OneToMany(mappedBy = "hospital",
+               cascade = CascadeType.ALL,
+               fetch = FetchType.LAZY)
+    private Set<MedicalCase> medicalCases = new HashSet<>();
+
     //endregion
 
     //region Constructors
@@ -243,7 +248,13 @@ public class Hospital implements Serializable
         this.doctorHospitals.add(doctorHospital);
     }
 
+    public void addMedicalCase(MedicalCase medicalCase) {
+        medicalCase.setHospital(this);
+        this.medicalCases.add(medicalCase);
+    }
+
     //endregion
+
     //region HashCode and Equals
     @Override
     public int hashCode()

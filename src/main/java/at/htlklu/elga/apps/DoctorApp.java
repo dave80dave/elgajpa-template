@@ -1,6 +1,7 @@
 package at.htlklu.elga.apps;
 
 import at.htlklu.elga.model.Doctor;
+import at.htlklu.elga.model.DoctorHospital;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -18,13 +19,16 @@ public class DoctorApp {
     private static EntityManager entityManager;
     private static int doctorId = 2;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         entityManagerFactory = Persistence.createEntityManagerFactory("elga");
         entityManager = entityManagerFactory.createEntityManager();
 
         //selectA();
-        createDoctor();
+//        int id = createDoctor();
+//        updateDoctor(id);
+//        deleteDoctor(id);
+        report(2);
+        report(2);
         entityManager.close();
         entityManagerFactory.close();
     }
@@ -73,7 +77,7 @@ public class DoctorApp {
 
     // Müssen eine Transaktion starten
 
-    public static void createDoctor() {
+    public static int createDoctor() {
         EntityTransaction transaction = entityManager.getTransaction();
 
         transaction.begin();
@@ -83,17 +87,73 @@ public class DoctorApp {
                     LocalDate.of(1991, 1, 1));
 
             entityManager.persist(doctor);
-
             transaction.commit();
+            return doctor.getDoctorId();
 
         } catch (Exception e) {
             transaction.rollback();
             System.out.println("Fehler beim Erstellen des Doktors");
         }
+        return -1;
 
-
-
-        //endregion
     }
+
+    //region reports
+
+    private static void report(int id) {
+        Doctor doctor = entityManager.find(Doctor.class, id);
+        System.out.printf("%s", doctor);
+
+        doctor.getDoctorHospitals().stream()
+                .sorted(DoctorHospital.BY_DATE_FROM)
+                .limit(5)
+                .forEach(doctorHospital -> System.out.printf("%s (%s - %s)\n",
+                        doctorHospital.getHospital().getName(),
+                        doctorHospital.getDateFrom(),
+                        doctorHospital.getDateTo()));
+
+        System.out.printf("Total Income: %s%n", doctor.getTotalIncomeStatistics());
+    }
+
+    //endregion
+
+    //endregion
+
+    //region update Doctor
+    public static void updateDoctor(int id) {
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        try {
+            Doctor doctor = entityManager.find(Doctor.class, id);
+            doctor.setFirstname("Ludwig");
+            doctor.setSurname("van Beethoven");
+            transaction.commit();
+
+        } catch (Exception e) {
+            transaction.rollback();
+            System.out.println("Fehler beim Aktualisieren des Doktors");
+        }
+    }
+    //endregion
+
+    //region delete Doctor
+
+    private static void deleteDoctor(int id) {
+
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        try {
+            Doctor doctor = entityManager.find(Doctor.class, id);
+            entityManager.remove(doctor);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            System.out.println("Fehler beim Löschen des Doktors");
+        }
+    }
+    //endregion
+
 }
 
