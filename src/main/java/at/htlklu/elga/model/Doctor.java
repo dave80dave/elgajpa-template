@@ -213,11 +213,7 @@ public class Doctor implements Serializable {
                 .summaryStatistics();
     }
     //endregion MedicalCase
-    public LongSummaryStatistics getDaysStatistic(){
-        return this.medicalCases.stream()
-                .mapToLong(MedicalCase::getDays)
-                .summaryStatistics();
-    }
+
     //endregion
 
     //region reports
