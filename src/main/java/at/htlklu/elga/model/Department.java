@@ -102,7 +102,36 @@ public class Department implements Serializable
 	}
 	//endregion
 
+	//region Methods
+	public DoubleSummaryStatistics getCostsByDayStatistics() {
+		return this.medicalVisits.stream()
+				.mapToDouble(MedicalVisit::getCostsPerDay)
+				.summaryStatistics();
+	}
 
+	public LongSummaryStatistics getDaysStatistics() {
+		return this.medicalVisits.stream()
+				.mapToLong(MedicalVisit::getDays)
+				.summaryStatistics();
+	}
+
+	public DoubleSummaryStatistics getCostsStatistics() {
+		return this.medicalVisits.stream()
+				.mapToDouble(MedicalVisit::getCosts)
+				.summaryStatistics();
+	}
+
+	public IntSummaryStatistics getRatingsStatistics() {
+		return this.medicalVisits.stream()
+				.mapToInt(MedicalVisit::getRating)
+				.summaryStatistics();
+	}
+	public LongSummaryStatistics getDaysStatistic(){
+		return this.medicalVisits.stream()
+				.mapToLong(MedicalVisit::getDays)
+				.summaryStatistics();
+	}
+	//endregion
 
 
 
